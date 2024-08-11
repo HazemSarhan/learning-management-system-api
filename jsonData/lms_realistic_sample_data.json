@@ -1,0 +1,314 @@
+{
+    "Category": [
+        {
+            "name": "Development",
+            "description": "Courses related to software development, programming languages, and frameworks.",
+            "subcategories": [
+                "Web Development",
+                "Data Science"
+            ]
+        },
+        {
+            "name": "Business",
+            "description": "Courses focused on business skills, management, and entrepreneurship.",
+            "subcategories": [
+                "Leadership"
+            ]
+        },
+        {
+            "name": "Design",
+            "description": "Courses on graphic design, UX/UI, and creative tools.",
+            "subcategories": [
+                "Graphic Design"
+            ]
+        },
+        {
+            "name": "Marketing",
+            "description": "Courses on digital marketing, SEO, and content marketing.",
+            "subcategories": [
+                "Digital Marketing"
+            ]
+        },
+        {
+            "name": "IT & Software",
+            "description": "Courses on IT certifications, software tools, and network security.",
+            "subcategories": []
+        }
+    ],
+    "Subcategory": [
+        {
+            "name": "Web Development",
+            "description": "Courses on front-end and back-end web development.",
+            "tags": [
+                "JavaScript",
+                "React",
+                "Node.js"
+            ],
+            "category": "Development"
+        },
+        {
+            "name": "Data Science",
+            "description": "Courses on data analysis, machine learning, and AI.",
+            "tags": [
+                "Python",
+                "Pandas",
+                "Machine Learning"
+            ],
+            "category": "Development"
+        },
+        {
+            "name": "Leadership",
+            "description": "Courses on leadership skills and team management.",
+            "tags": [
+                "Leadership",
+                "Management",
+                "Communication"
+            ],
+            "category": "Business"
+        },
+        {
+            "name": "Graphic Design",
+            "description": "Courses on graphic design tools and principles.",
+            "tags": [
+                "Photoshop",
+                "Illustrator",
+                "Design Principles"
+            ],
+            "category": "Design"
+        },
+        {
+            "name": "Digital Marketing",
+            "description": "Courses on online marketing strategies and tools.",
+            "tags": [
+                "SEO",
+                "Content Marketing",
+                "Social Media"
+            ],
+            "category": "Marketing"
+        }
+    ],
+    "Tag": [
+        {
+            "name": "JavaScript",
+            "subcategories": [
+                "Web Development"
+            ]
+        },
+        {
+            "name": "React",
+            "subcategories": [
+                "Web Development"
+            ]
+        },
+        {
+            "name": "Node.js",
+            "subcategories": [
+                "Web Development"
+            ]
+        },
+        {
+            "name": "Python",
+            "subcategories": [
+                "Data Science"
+            ]
+        },
+        {
+            "name": "Pandas",
+            "subcategories": [
+                "Data Science"
+            ]
+        },
+        {
+            "name": "Machine Learning",
+            "subcategories": [
+                "Data Science"
+            ]
+        },
+        {
+            "name": "Leadership",
+            "subcategories": [
+                "Leadership"
+            ]
+        },
+        {
+            "name": "Management",
+            "subcategories": [
+                "Leadership"
+            ]
+        },
+        {
+            "name": "Communication",
+            "subcategories": [
+                "Leadership"
+            ]
+        },
+        {
+            "name": "Photoshop",
+            "subcategories": [
+                "Graphic Design"
+            ]
+        },
+        {
+            "name": "Illustrator",
+            "subcategories": [
+                "Graphic Design"
+            ]
+        },
+        {
+            "name": "Design Principles",
+            "subcategories": [
+                "Graphic Design"
+            ]
+        },
+        {
+            "name": "SEO",
+            "subcategories": [
+                "Digital Marketing"
+            ]
+        },
+        {
+            "name": "Content Marketing",
+            "subcategories": [
+                "Digital Marketing"
+            ]
+        },
+        {
+            "name": "Social Media",
+            "subcategories": [
+                "Digital Marketing"
+            ]
+        }
+    ],
+    "Course": [
+        {
+            "title": "Complete JavaScript Course",
+            "description": "Learn JavaScript from scratch and build dynamic web applications.",
+            "instructor": "John Doe",
+            "students": [
+                "Alice Johnson",
+                "Bob Smith",
+                "Charlie Brown"
+            ],
+            "requirements": [
+                "Basic HTML & CSS knowledge",
+                "A computer with internet access"
+            ],
+            "isPaid": true,
+            "featured": true,
+            "category": "Development",
+            "tags": [
+                "JavaScript",
+                "Web Development",
+                "React"
+            ],
+            "price": 49,
+            "image": "https://example.com/images/javascript_course.jpg",
+            "createdAt": "2024-02-11T04:04:42",
+            "updatedAt": "2024-03-23T01:47:52"
+        },
+        {
+            "title": "Python for Data Science and Machine Learning Bootcamp",
+            "description": "Learn Python for data analysis, visualization, and machine learning.",
+            "instructor": "Jane Smith",
+            "students": [
+                "David Williams",
+                "Emma Wilson",
+                "Olivia Brown"
+            ],
+            "requirements": [
+                "Basic programming knowledge",
+                "A computer with internet access"
+            ],
+            "isPaid": true,
+            "featured": false,
+            "category": "Development",
+            "tags": [
+                "Python",
+                "Data Science",
+                "Machine Learning"
+            ],
+            "price": 60,
+            "image": "https://example.com/images/python_course.jpg",
+            "createdAt": "2024-01-21T21:31:13",
+            "updatedAt": "2024-04-23T07:33:54"
+        },
+        {
+            "title": "Become a Leader: Leadership Skills for Managers",
+            "description": "Develop your leadership skills to effectively manage and inspire your team.",
+            "instructor": "Michael Green",
+            "students": [
+                "Sophia Lee",
+                "Liam Johnson",
+                "Noah Davis"
+            ],
+            "requirements": [
+                "Desire to improve leadership skills",
+                "Willingness to engage in practical exercises"
+            ],
+            "isPaid": true,
+            "featured": true,
+            "category": "Business",
+            "tags": [
+                "Leadership",
+                "Management",
+                "Communication"
+            ],
+            "price": 75,
+            "image": "https://example.com/images/leadership_course.jpg",
+            "createdAt": "2024-05-03T15:57:24",
+            "updatedAt": "2024-05-21T00:09:20"
+        },
+        {
+            "title": "Mastering Graphic Design with Photoshop and Illustrator",
+            "description": "Learn the essential tools and techniques for graphic design.",
+            "instructor": "Emily White",
+            "students": [
+                "Lucas Martinez",
+                "Amelia Garcia",
+                "Mason Clark"
+            ],
+            "requirements": [
+                "Access to Adobe Photoshop and Illustrator",
+                "Basic design knowledge"
+            ],
+            "isPaid": true,
+            "featured": false,
+            "category": "Design",
+            "tags": [
+                "Photoshop",
+                "Illustrator",
+                "Graphic Design"
+            ],
+            "price": 55,
+            "image": "https://example.com/images/design_course.jpg",
+            "createdAt": "2024-01-16T06:19:32",
+            "updatedAt": "2024-02-05T23:21:16"
+        },
+        {
+            "title": "The Ultimate Guide to Digital Marketing",
+            "description": "Master digital marketing strategies to grow your business online.",
+            "instructor": "Daniel Black",
+            "students": [
+                "Ethan Harris",
+                "Alexander Clark",
+                "Isabella Lewis"
+            ],
+            "requirements": [
+                "Basic understanding of marketing principles",
+                "Access to a computer and the internet"
+            ],
+            "isPaid": true,
+            "featured": true,
+            "category": "Marketing",
+            "tags": [
+                "SEO",
+                "Digital Marketing",
+                "Content Marketing"
+            ],
+            "price": 40,
+            "image": "https://example.com/images/marketing_course.jpg",
+            "createdAt": "2024-04-15T01:24:13",
+            "updatedAt": "2024-04-13T17:51:55"
+        }
+    ]
+}

@@ -22,6 +22,7 @@ const connectDB = require('./db/connect');
 // Routes
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const courseStructureRoute = require('./routes/courseStructureRoutes');
 
 // Middleware
 const notFoundMiddleware = require('./middleware/not-found');
@@ -40,6 +41,7 @@ app.use(
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/courseStructure', courseStructureRoute);
 
 app.get('/', (req, res) => {
   res.send(`<h1>Learning Management System API</h1>`);
