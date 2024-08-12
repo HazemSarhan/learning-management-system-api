@@ -1,16 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const {
-  createTags,
-  getAllTags,
-  createSubcategory,
-  getAllSubcategories,
   createCategory,
+  createTags,
+  createSubcategories,
+  getAllTags,
   getAllCategories,
+  getAllSubcategories,
 } = require('../controllers/courseStructureController');
 
-router.route('/tags').post(createTags).get(getAllTags); // => Tags Route
-router.route('/subcategory').post(createSubcategory).get(getAllSubcategories); // => Subcategories Route
-router.route('/category').post(createCategory).get(getAllCategories); // => Categories Route
+router.post('/category', createCategory);
+router.post('/tags', createTags);
+router.post('/subcategory', createSubcategories);
+router.get('/tags', getAllTags);
+router.get('/category', getAllCategories);
+router.get('/subcategory', getAllSubcategories);
 
 module.exports = router;

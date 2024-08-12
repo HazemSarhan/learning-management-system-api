@@ -4,8 +4,6 @@
 
 For detailed API documentation, visit [API Documentation](http://localhost:5000/api-docs).
 
-=======================================================================================================
-
 ## User Schema
 
 - [x] name: str, email: str, password: str, role: str, bio: str, profilePicture: str, {timestamps}
@@ -35,48 +33,51 @@ For detailed API documentation, visit [API Documentation](http://localhost:5000/
 - `POST /api/v1/users/updateUserPassword` Update user password
 - `POST /api/v1/users/:id` - Get single user data by {userId}
 
-=======================================================================================================
-
 ## Course Structure [Tags, Subcategory, Category]
 
-NOTE: "Please create the structure in order!!!!!!" {1: tags, 2: subcategorires, 3: category}
+'''
+Previous workflow was to make the structure in order : [Tags, Subcategory, Category]
+Check the previous commit for comparision and changes
+'''
 
-- [1] => Tags
-  = Create a new Tag => {name}
-  NOTE: In the raw & form-data you can add subcategories by both (name & id) choose whatever you like!
-  NOTE: You can send multiple tags in the same request
-  Check the documentation for more info!
+Course Structure Workflow [UPDATED]
 
-- [2] => Subcategory
-  = Create a new Subcategory => {name, description, tags}
-  NOTE: In the raw & form-data you can add tags by both (name & id) choose whatever you like!
-  NOTE: You can send multiple subcategories in the same request
-  Check the documentation for more info!
+# [x] => Tags:
 
-- [3] => Category
-  = Create a new catagory
-  NOTE: In the raw & form-data you can add (subcategories & tags) by both (name & id) choose whatever you like!
-  NOTE: You can only create one category
+- You can send multiple tags in the same request
+- In the raw & form-data you can add subcategories by both (name & id) choose whatever you like!
+  NOTE: Check the documentation for more info!
 
-After creating [Tags, Subcategory, Category] in order, you can create a new tag and add the created subcategory.
-Also you can create a new category directly with the created data without re-create (category, tag) from scratch.
-Please, check the documentation for more info!
+# [x] => Subcategory:
+
+- In the raw & form-data you can add tags by both (name & id) choose whatever you like!
+- You can send multiple subcategories in the same request
+  NOTE: Check the documentation for more info!
+
+# [x] => Category:
+
+- In the raw & form-data you can add (subcategories & tags) by both (name & id) choose whatever you like!
+  NOTE: You can create ONLY ONE CATEGORY PER REQUEST
+  NOTE: Check the documentation for more info!
 
 ## Course Structure [Tags, Subcategory, Category] Routes:
 
-[Next Step]
-
-=======================================================================================================
+- `POST /api/v1/course/structure/tags` - Create a new tag or multiple tags
+- `GET /api/v1/course/structure/tags` - Get all tags
+- `POST /api/v1/course/structure/subcategory` - Create a new subcategory or multiple subcategories
+- `GET /api/v1/course/structure/subcategory` - Get all subcategories
+- `POST /api/v1/course/structure/category` - Create a new category [only one is allowed]
+- `GET /api/v1/course/structure/tags` - Get all categories
+  [EDIT/UPDATE/DELETE] IN FUTURE.
 
 ## Course Management [Course, Sections, Lectures]:
 
-[Next Step]
+- Models Created!
+  [Next Step]
 
 ## Course Management [Course, Sections, Lectures] Routes:
 
 [Next Step]
-
-=======================================================================================================
 
 ## Course Assignments [Quizzes, Answers] :
 
@@ -86,8 +87,6 @@ Please, check the documentation for more info!
 
 [Next Step]
 
-=======================================================================================================
-
 ## Course Enrollments [Enrollment([Free, Paid with payment]), Transaction] :
 
 [Next Step]
@@ -95,8 +94,6 @@ Please, check the documentation for more info!
 ## Course Enrollments [Enrollment([Free, Paid with payment]), Transaction] Routes:
 
 [Next Step]
-
-=======================================================================================================
 
 # License
 

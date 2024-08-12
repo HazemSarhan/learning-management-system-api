@@ -41,7 +41,7 @@ app.use(
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
-app.use('/api/v1/courseStructure', courseStructureRoute);
+app.use('/api/v1/course/structure', courseStructureRoute);
 
 app.get('/', (req, res) => {
   res.send(`<h1>Learning Management System API</h1>`);

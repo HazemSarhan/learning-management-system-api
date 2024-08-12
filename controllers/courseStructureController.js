@@ -5,110 +5,113 @@ const Category = require('../models/Category');
 const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../errors');
 
-const createTags = async (req, res) => {
-  const tagsData = Array.isArray(req.body) ? req.body : [req.body]; // Handle both array and single object
-  if (tagsData.length === 0) {
-    throw new CustomError.BadRequestError(
-      'You must provide at least one tag!.'
+const createCategory = async (req, res) => {
+  const { name, description, subcategories = [], tags = [] } = req.body;
+  const category = await Category.create({
+    name,
+    description,
+    subcategories,
+    tags,
+  });
+
+  // If [subcategories] found, link it to category
+  if (subcategories.length > 0) {
+    await Subcategory.updateMany(
+      { _id: { $in: subcategories } },
+      { $push: { categories: category._id } }
     );
+  }
+
+  // If [tags] found, link it to category
+  if (tags.length > 0) {
+    await Tag.updateMany(
+      { _id: { $in: tags } },
+      { $push: { categories: category._id } }
+    );
+  }
+
+  res.status(StatusCodes.CREATED).json({ category });
+};
+
+const createTags = async (req, res) => {
+  const tagsData = Array.isArray(req.body) ? req.body : [req.body]; // Handle both single or multiple objects
+  if (tagsData.length === 0) {
+    throw new CustomError.BadRequestError('Please provide at least one tag!');
   }
 
   const createdTags = [];
 
-  // Iterate over each tag object in the array
   for (const tagData of tagsData) {
-    const { name, subcategories } = tagData;
-    let subcategoriesId = [];
-
-    // Process subcategories if provided
-    if (subcategories && Array.isArray(subcategories)) {
-      subcategoriesId = await Promise.all(
-        subcategories.map(async (subcategory) => {
-          if (mongoose.Types.ObjectId.isValid(subcategory)) {
-            return subcategory; // If there's SubcategoryId use it directly
-          } else {
-            const foundSubcategory = await Subcategory.findOne({
-              name: subcategory,
-            });
-            if (foundSubcategory) {
-              return foundSubcategory._id; // Return the SubcategoryId if the subcategory name exists
-            } else {
-              throw new CustomError.NotFoundError(
-                `No Subcategory found with name: ${subcategory}`
-              );
-            }
-          }
-        })
-      );
+    // Iteration Process for both values
+    const { name, subcategories = [], categories = [] } = tagData;
+    if (!name) {
+      throw new CustomError.BadRequestError('Please provide at least one tag!');
     }
+    const tag = await Tag.create({ name, subcategories, categories });
 
-    // Create the tag, with or without subcategories
-    const tag = await Tag.create({ name, subcategories: subcategoriesId });
-
-    // Update subcategories automatically if any subcategories were provided
-    if (subcategoriesId.length > 0) {
+    // If [subcategories] found, link it to tags
+    if (subcategories.length > 0) {
       await Subcategory.updateMany(
-        { _id: { $in: subcategoriesId } }, // Find Subcategory by id
-        { $push: { tags: tag._id } } // Add tagId to each subcategory's tags array
+        { _id: { $in: subcategories } },
+        { $push: { tags: tag._id } }
       );
     }
 
+    // If [categories] found, link it to tags
+    if (categories.length > 0) {
+      await Category.updateMany(
+        { _id: { $in: categories } },
+        { $push: { tags: tag._id } }
+      );
+    }
     createdTags.push(tag);
   }
 
   res.status(StatusCodes.CREATED).json({ createdTags });
 };
 
-const getAllTags = async (req, res) => {
-  const tags = await Tag.find({});
-  res.status(StatusCodes.OK).json({ tags });
-};
-
-const createSubcategory = async (req, res) => {
-  // To accept both: signle & multiple categories
+const createSubcategories = async (req, res) => {
   const subcategoriesData = Array.isArray(req.body) ? req.body : [req.body];
-  if (subcategoriesData.length === 0) {
-    throw new CustomError.BadRequestError('Must provide at least one category');
+  if (!subcategoriesData.length) {
+    throw new CustomError.BadRequestError(
+      'Please provide at least one subcategory!'
+    );
   }
-
   const createdSubcategories = [];
 
-  // Iteration
   for (const subcategoryData of subcategoriesData) {
-    const { name, description, tags } = subcategoryData;
-    let tagsId = [];
+    const { name, description, tags = [], categories = [] } = subcategoryData;
 
-    // Process tags if provided
-    if (tags && Array.isArray(tags)) {
-      tagsId = await Promise.all(
-        tags.map(async (tag) => {
-          if (mongoose.Types.ObjectId.isValid(tag)) {
-            return tag; // If there's TagsId use it directly
-          } else {
-            const foundTag = await Tag.findOne({ name: tag });
-            if (foundTag) {
-              return foundTag._id; // Return the TagsId if the Tag name exists
-            } else {
-              throw new CustomError.NotFoundError(`Tag not found: ${tag}`);
-            }
-          }
-        })
+    if (!name) {
+      throw new CustomError.BadRequestError(
+        'Please provide a subcategory name!'
       );
     }
 
-    // Create the subcategory, with or without tags
+    // Create the subcategory
     const subcategory = await Subcategory.create({
       name,
       description,
-      tags: tagsId,
+      tags,
+      categories,
     });
 
-    // Update each tag to include this subcategory
-    if (tagsId.length > 0) {
+    // Update Tags to include this subcategory
+    if (tags.length > 0) {
       await Tag.updateMany(
-        { _id: { $in: tagsId } }, // Find tags by their IDs
-        { $push: { subcategories: subcategory._id } } // Add the subcategory ID to each tag's subcategories array
+        { _id: { $in: tags } },
+        { $push: { subcategories: subcategory._id } }
       );
+    }
+
+    // Update Categories to include this subcategory
+    if (categories.length > 0) {
+      const updateCategoriesResult = await Category.updateMany(
+        { _id: { $in: categories } },
+        { $push: { subcategories: subcategory._id } }
+      );
+
+      console.log('Categories update result:', updateCategoriesResult);
     }
 
     createdSubcategories.push(subcategory);
@@ -117,94 +120,50 @@ const createSubcategory = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ createdSubcategories });
 };
 
-const getAllSubcategories = async (req, res) => {
-  const subcategories = await Subcategory.find({});
-  res.status(StatusCodes.OK).json({ subcategories });
-};
-
-const createCategory = async (req, res) => {
-  const { name, description, subcategories, tags } = req.body;
-
-  let subcategoriesId = [];
-
-  // If were a subcategories added.
-  if (subcategoriesId && Array.isArray(subcategoriesId)) {
-    // Mapping to get names from subcategoryIds to parse data with both [subcategory.name || subcategory._id]
-    subcategoriesId = await Promise.all(
-      subcategories.map(async (subcategory) => {
-        if (mongoose.Types.ObjectId.isValid(subcategory)) {
-          return subcategory;
-        } else {
-          const subcategories = await Subcategory.findOne({
-            name: subcategory,
-          });
-          if (subcategories) {
-            return subcategories._id;
-          } else {
-            throw new CustomError.NotFoundError(
-              `No Subcategory found ${subcategory}`
-            );
-          }
-        }
-      })
-    );
-  }
-
-  let tagsId = [];
-  if (tags && Array.isArray(tags)) {
-    tagsId = await Promise.all(
-      tags.map(async (tag) => {
-        if (mongoose.Types.ObjectId.isValid(tag)) {
-          return tag;
-        } else {
-          const tags = await Tag.findOne({ name: tag });
-          if (tags) {
-            return tags._id;
-          } else {
-            throw new CustomError.NotFoundError(`Tag not found ${tag}`);
-          }
-        }
-      })
-    );
-  }
-
-  const category = await Category.create({
-    name,
-    description,
-    subcategories: subcategoriesId,
-    tags: tagsId,
-  });
-
-  if (subcategoriesId.length > 0) {
-    await Subcategory.updateMany(
-      { _id: { $in: subcategoriesId } },
-      { $push: { categories: category._id } } // Assuming you have a categories field in Subcategory schema
-    );
-  }
-
-  // Update each tag to include this category
-  if (tagsId.length > 0) {
-    await Tag.updateMany(
-      { _id: { $in: tagsId } },
-      { $push: { categories: category._id } } // Assuming you have a categories field in Tag schema
-    );
-  }
-
-  console.log(tagsId);
-  console.log(subcategoriesId);
-  res.status(StatusCodes.CREATED).json({ category });
-};
-
 const getAllCategories = async (req, res) => {
-  const categories = await Category.find({});
+  const categories = await Category.find({})
+    .populate({
+      path: 'tags',
+      select: 'name',
+    })
+    .populate({
+      path: 'subcategories',
+      select: 'name description',
+    });
   res.status(StatusCodes.OK).json({ categories });
 };
 
+const getAllTags = async (req, res) => {
+  const tags = await Tag.find({})
+    .populate({
+      path: 'categories',
+      select: 'name description',
+    })
+    .populate({
+      path: 'subcategories',
+      select: 'name description',
+    });
+  res.status(StatusCodes.OK).json({ tags });
+};
+
+const getAllSubcategories = async (req, res) => {
+  const subcategories = await Subcategory.find({})
+    .populate({
+      path: 'categories',
+      select: 'name description',
+    })
+    .populate({
+      path: 'tags',
+      select: 'name',
+    });
+  res.status(StatusCodes.OK).json({ subcategories });
+};
+
 module.exports = {
-  createTags,
-  getAllTags,
-  createSubcategory,
-  getAllSubcategories,
   createCategory,
+  createTags,
+  createSubcategories,
   getAllCategories,
+  getAllTags,
+  getAllSubcategories,
 };
