@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
 const Tag = require('../models/Tag');
 const Subcategory = require('../models/Subcategory');
 const Category = require('../models/Category');
 const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../errors');
 
+// Categories
 const createCategory = async (req, res) => {
   const { name, description, subcategories = [], tags = [] } = req.body;
   const category = await Category.create({
@@ -33,6 +33,68 @@ const createCategory = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ category });
 };
 
+const getAllCategories = async (req, res) => {
+  const categories = await Category.find({})
+    .populate({
+      path: 'tags',
+      select: 'name',
+    })
+    .populate({
+      path: 'subcategories',
+      select: 'name description',
+    });
+  res.status(StatusCodes.OK).json({ categories });
+};
+
+const getSingleCategory = async (req, res) => {
+  const { id: categoryId } = req.params;
+  const category = await Category.findById(categoryId)
+    .populate({
+      path: 'tags',
+      select: 'name',
+    })
+    .populate({
+      path: 'subcategories',
+      select: 'name description',
+    });
+  if (!category) {
+    throw new CustomError.NotFoundError(
+      `No category found with id: ${categoryId}`
+    );
+  }
+  res.status(StatusCodes.OK).json({ category });
+};
+
+const updateCategory = async (req, res) => {
+  const { id: categoryId } = req.params;
+  const { name, description, subcategories = [], tags = [] } = req.body;
+  const category = await Category.findById(categoryId);
+  if (!category) {
+    throw new CustomError.NotFoundError(
+      `No category found with id: ${categoryId}`
+    );
+  }
+  category.name = name;
+  category.description = description;
+  category.subcategories = subcategories;
+  category.tags = tags;
+  await category.save();
+
+  res.status(StatusCodes.OK).json(category);
+};
+
+const deleteCategory = async (req, res) => {
+  const { id: categoryId } = req.params;
+  const category = await Category.findByIdAndDelete(categoryId);
+  if (!category) {
+    throw new CustomError.NotFoundError(
+      `No category found with id: ${categoryId}`
+    );
+  }
+  res.status(StatusCodes.OK).json({ msg: `category has been deleted!` });
+};
+
+// Tags
 const createTags = async (req, res) => {
   const tagsData = Array.isArray(req.body) ? req.body : [req.body]; // Handle both single or multiple objects
   if (tagsData.length === 0) {
@@ -70,6 +132,60 @@ const createTags = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ createdTags });
 };
 
+const getAllTags = async (req, res) => {
+  const tags = await Tag.find({})
+    .populate({
+      path: 'categories',
+      select: 'name description',
+    })
+    .populate({
+      path: 'subcategories',
+      select: 'name description',
+    });
+  res.status(StatusCodes.OK).json({ tags });
+};
+
+const getSingleTag = async (req, res) => {
+  const { id: tagId } = req.params;
+  const tag = await Tag.findById(tagId)
+    .populate({
+      path: 'categories',
+      select: 'name description',
+    })
+    .populate({
+      path: 'subcategories',
+      select: 'name description',
+    });
+  if (!tag) {
+    throw new CustomError.NotFoundError(`No tag found with id: ${tagId}`);
+  }
+  res.status(StatusCodes.OK).json({ tag });
+};
+
+const updateTag = async (req, res) => {
+  const { id: tagId } = req.params;
+  const { name, subcategories = [], categories = [] } = req.body;
+  const tag = await Tag.findById(tagId);
+  if (!tag) {
+    throw new CustomError.NotFoundError(`No tag found with id: ${tagId}`);
+  }
+  tag.name = name;
+  tag.subcategories = subcategories;
+  tag.categories = categories;
+  await tag.save();
+  res.status(StatusCodes.OK).json({ tag });
+};
+
+const deleteTag = async (req, res) => {
+  const { id: tagId } = req.params;
+  const tag = await Tag.findByIdAndDelete(tagId);
+  if (!tag) {
+    throw new CustomError.NotFoundError(`No tag found with id: ${tagId}`);
+  }
+  res.status(StatusCodes.OK).json({ msg: `Tag has been deleted!` });
+};
+
+// Subcategories
 const createSubcategories = async (req, res) => {
   const subcategoriesData = Array.isArray(req.body) ? req.body : [req.body];
   if (!subcategoriesData.length) {
@@ -120,32 +236,6 @@ const createSubcategories = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ createdSubcategories });
 };
 
-const getAllCategories = async (req, res) => {
-  const categories = await Category.find({})
-    .populate({
-      path: 'tags',
-      select: 'name',
-    })
-    .populate({
-      path: 'subcategories',
-      select: 'name description',
-    });
-  res.status(StatusCodes.OK).json({ categories });
-};
-
-const getAllTags = async (req, res) => {
-  const tags = await Tag.find({})
-    .populate({
-      path: 'categories',
-      select: 'name description',
-    })
-    .populate({
-      path: 'subcategories',
-      select: 'name description',
-    });
-  res.status(StatusCodes.OK).json({ tags });
-};
-
 const getAllSubcategories = async (req, res) => {
   const subcategories = await Subcategory.find({})
     .populate({
@@ -159,11 +249,67 @@ const getAllSubcategories = async (req, res) => {
   res.status(StatusCodes.OK).json({ subcategories });
 };
 
+const getSingleSubcategory = async (req, res) => {
+  const { id: subcategoryId } = req.params;
+  const subcategory = await Subcategory.findById(subcategoryId)
+    .populate({
+      path: 'categories',
+      select: 'name description',
+    })
+    .populate({
+      path: 'tags',
+      select: 'name',
+    });
+  if (!subcategory) {
+    throw new CustomError.NotFoundError(
+      `Subcategory not found: ${subcategoryId}`
+    );
+  }
+  res.status(StatusCodes.OK).json({ subcategory });
+};
+
+const updateSubcategory = async (req, res) => {
+  const { id: subcategoryId } = req.params;
+  const { name, description, tags = [], categories = [] } = req.body;
+  const subcategory = await Subcategory.findById(subcategoryId);
+  if (!subcategory) {
+    throw new CustomError.NotFoundError(
+      `Subcategory not found: ${subcategoryId}`
+    );
+  }
+  subcategory.name = name;
+  subcategory.description = description;
+  subcategory.tags = tags;
+  subcategory.categories = categories;
+  await subcategory.save();
+  res.status(StatusCodes.OK).json({ subcategory });
+};
+
+const deleteSubcategory = async (req, res) => {
+  const { id: subcategoryId } = req.params;
+  const subcategory = await Subcategory.findByIdAndDelete(subcategoryId);
+  if (!subcategory) {
+    throw new CustomError.NotFoundError(
+      `Subcategory not found: ${subcategoryId}`
+    );
+  }
+  res.status(StatusCodes.OK).json({ msg: `Subcategory has been deleted!` });
+};
+
 module.exports = {
   createCategory,
-  createTags,
-  createSubcategories,
   getAllCategories,
+  getSingleCategory,
+  updateCategory,
+  deleteCategory,
+  createTags,
   getAllTags,
+  getSingleTag,
+  updateTag,
+  deleteTag,
+  createSubcategories,
   getAllSubcategories,
+  getSingleSubcategory,
+  updateSubcategory,
+  deleteSubcategory,
 };
