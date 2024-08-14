@@ -1,15 +1,13 @@
 <div align="center">
-  <a href="https://github.com/HazemSarhan/learning-management-system-api"> <!-- GITHUB REPO LINK -->
-    <img src="" alt="Logo" width="80" height="80">
-  </a>
+  
+  </a> <!-- GITHUB REPO LINK -->
 
-  <h3 align="center">[Learning Management System]</h3>
+  <h3 align="center"><a href="https://github.com/HazemSarhan/learning-management-system-api">[Learning Management System]</a></h3>
 
   <p align="center">
-    Learning Management System API Project!
+    This is an API for LMS, check the docs & README.MD file for all info.
     <br />
     <a href="http://localhost:5000/api-docs"><strong>Explore the docs »</strong></a>
-    <br />
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
   </p>
