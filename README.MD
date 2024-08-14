@@ -68,8 +68,8 @@ For detailed API documentation, visit [API Documentation](http://localhost:5000/
 
 - In the raw & form-data you can add (subcategories & tags) by both (name & id) choose whatever you like!
 
-  > [!WARNING]
-  > You can create ONLY ONE CATEGORY PER REQUEST!
+> [!WARNING]
+> You can create ONLY ONE CATEGORY PER REQUEST!
 
 # Course Structure [Tags, Subcategory, Category] Routes:
 
