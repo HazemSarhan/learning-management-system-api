@@ -13,6 +13,12 @@ const CourseSchema = new mongoose.Schema(
       maxlength: 100,
       required: [true, 'Please provide a valid course description'],
     },
+    sections: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Section',
+      },
+    ],
     instructor: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',

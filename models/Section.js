@@ -12,6 +12,12 @@ const SectionSchema = new mongoose.Schema(
       ref: 'Course',
       required: [true, 'Please provide valid courseId!'],
     },
+    lectures: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Lecture',
+      },
+    ],
   },
   { timestamps: true }
 );

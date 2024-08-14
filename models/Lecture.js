@@ -7,7 +7,8 @@ const LectureSchema = new mongoose.Schema(
       required: [true, 'Must provide valid lecture'],
     },
     content: {
-      type: String,
+      type: String, // if (cloudinary) ? URL : mongoDB
+      default: '/uploads/course-content.mp4',
       required: true,
     },
     section: {
@@ -17,7 +18,7 @@ const LectureSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ['video', 'image', 'text', 'quiz'],
+      enum: ['video', 'image', 'text', 'quiz', 'pdf'],
       default: 'text',
     },
     duration: {
