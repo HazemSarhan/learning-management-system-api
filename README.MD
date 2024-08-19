@@ -13,11 +13,11 @@
   </p>
 </div>
 
-# API Documentation
+## API Documentation
 
 For detailed API documentation, visit [API Documentation](http://localhost:5000/api-docs).
 
-# User Schema
+## User Schema
 
 - name: str, email: str, password: str, role: str, bio: str, profilePicture: str, {timestamps}
 - email: => unique // mongoose validator {isValidate} // controller function
@@ -25,13 +25,13 @@ For detailed API documentation, visit [API Documentation](http://localhost:5000/
 - role: first registered user is admin, default role is student
 - profilePicture: upload images to cloud service (cloudinary)
 
-# Authentication Routes
+## Authentication Routes
 
 - `POST /api/v1/auth/register` - Register a new user
 - `POST /api/v1/auth/login` - Login a user
 - `POST /api/v1/auth/logout` - Logout a user
 
-# User Structure && Routes
+## User Structure && Routes
 
 - getAllUsers => Only for admins to get all users data
 - showMe => To show current logged in user data
@@ -45,7 +45,7 @@ For detailed API documentation, visit [API Documentation](http://localhost:5000/
 - `POST /api/v1/users/updateUserPassword` - Update user password
 - `POST /api/v1/users/:id` - Get single user data by {userId}
 
-# Course Structure Workflow [UPDATED]
+## Course Structure Workflow [UPDATED]
 
 > [!NOTE]
 > Previous workflow was to make the structure in order : [Tags, Subcategory, Category]
@@ -68,10 +68,10 @@ For detailed API documentation, visit [API Documentation](http://localhost:5000/
 
 - In the raw & form-data you can add (subcategories & tags) by both (name & id) choose whatever you like!
 
-  > [!WARNING]
-  > You can create ONLY ONE CATEGORY PER REQUEST!
+> [!WARNING]
+> You can create ONLY ONE CATEGORY PER REQUEST!
 
-# Course Structure [Tags, Subcategory, Category] Routes:
+## Course Structure [Tags, Subcategory, Category] Routes:
 
 - `POST /api/v1/course/structure/tag` - Create a new tag or multiple tags
 - `GET /api/v1/course/structure/tag` - Get all tags
@@ -91,31 +91,30 @@ For detailed API documentation, visit [API Documentation](http://localhost:5000/
 - `PATCH /api/v1/course/structure/category/{categoryId}` - Update Category
 - `DELETE /api/v1/course/structure/category/{categoryId}` - Delete Category
 
-# Course Management [Course, Sections, Lectures]:
+## Course Management [Course, Sections, Lectures]:
 
-- Models Created!
-  [Next Step]
+[DONE]
 
-# Course Management [Course, Sections, Lectures] Routes:
+## Course Management [Course, Sections, Lectures] Routes:
 
-[Next Step]
+[DONE]
 
-# Course Assignments [Quizzes, Answers] :
-
-[Next Step]
-
-# Course Assignments [Quizzes, Answers] Routes:
+## Course Assignments [Quizzes, Answers] :
 
 [Next Step]
 
-# Course Enrollments [Enrollment([Free, Paid with payment]), Transaction] :
+## Course Assignments [Quizzes, Answers] Routes:
 
 [Next Step]
 
-# Course Enrollments [Enrollment([Free, Paid with payment]), Transaction] Routes:
+## Course Enrollments [Enrollment([Free, Paid with payment]), Transaction] :
 
 [Next Step]
 
-# License
+## Course Enrollments [Enrollment([Free, Paid with payment]), Transaction] Routes:
+
+[Next Step]
+
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

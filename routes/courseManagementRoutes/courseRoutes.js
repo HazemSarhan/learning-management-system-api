@@ -12,6 +12,10 @@ const {
   deleteCourse,
 } = require('../../controllers/courseManagementController/courseController');
 
+const {
+  getCourseReviews,
+} = require('../../controllers/courseReviewController');
+
 router
   .route('/courses')
   .post(
@@ -37,5 +41,9 @@ router
     [authenticatedUser, authorizePermissions('admin', 'instructor')],
     deleteCourse
   );
+
+router
+  .route('/:id/reviews')
+  .get([authenticatedUser, authorizePermissions('admin')], getCourseReviews);
 
 module.exports = router;

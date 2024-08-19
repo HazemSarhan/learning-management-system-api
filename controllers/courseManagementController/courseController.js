@@ -1,34 +1,28 @@
 const Course = require('../../models/Course');
 const Category = require('../../models/Category');
 const Section = require('../../models/Section');
-const Tag = require('../../models/Tag');
 const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../../errors');
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require('../../configs/cloudinaryConfig');
 const fs = require('fs');
 const { checkPermission, paginate } = require('../../utils');
-const path = require('path');
+const { resolveIds } = require('../../utils');
 
 const createCourse = async (req, res) => {
   const {
     title,
     description,
-    instructor,
     requirements,
     sections = [],
     isPaid,
     featured,
     category,
-    tags = [],
     price,
   } = req.body;
 
-  const categoryValidate = await Category.findById(category);
-  if (!categoryValidate) {
-    throw new CustomError.NotFoundError(
-      `No category found with this id ${category}`
-    );
-  }
+  const instructor = req.user.userId;
+
+  const categoryIds = await resolveIds(category, Category, 'Category');
 
   // Sections validate (Only if found sections)
   if (sections) {
@@ -37,18 +31,6 @@ const createCourse = async (req, res) => {
       if (!sectionValidate) {
         throw new CustomError.NotFoundError(
           `No Section found with this id ${sectionId}`
-        );
-      }
-    }
-  }
-
-  // Tags validate (Only if found tags)
-  if (tags) {
-    for (let tagId of tags) {
-      const tagValidate = await Tag.findById(tagId);
-      if (!tagValidate) {
-        throw new CustomError.NotFoundError(
-          `No Tags found with this id ${tagId}`
         );
       }
     }
@@ -77,21 +59,21 @@ const createCourse = async (req, res) => {
     requirements,
     isPaid,
     featured,
-    category,
-    tags,
+    category: categoryIds,
     price,
     image,
     sections,
   });
 
+  console.log(category);
+  console.log(categoryIds);
+
+  if (price > 0) {
+    course.isPaid = true;
+  }
+
   await Section.updateMany(
     { _id: { $in: sections } }, // Update all sections and link it to the course
-    { course: course._id },
-    { new: true }
-  );
-
-  await Tag.updateMany(
-    { _id: { $in: tags } }, // Update all tags and link it to the course
     { course: course._id },
     { new: true }
   );
@@ -109,10 +91,6 @@ const getAllCourses = async (req, res) => {
       },
     })
     .populate({
-      path: 'tags',
-      select: 'name',
-    })
-    .populate({
       path: 'category',
       select: 'name',
     });
@@ -123,15 +101,12 @@ const getSingleCourse = async (req, res) => {
   const { id: courseId } = req.params;
   const course = await Course.findById(courseId)
     .populate({
-      path: 'sections', // Populate sections
+      path: 'sections',
+      select: 'title description lectures', // Populate sections
       populate: {
         path: 'lectures',
         select: 'title content',
       },
-    })
-    .populate({
-      path: 'tags',
-      select: 'name',
     })
     .populate({
       path: 'category',
@@ -155,36 +130,10 @@ const updateCourse = async (req, res) => {
     isPaid,
     featured,
     category,
-    tags = [],
     price,
   } = req.body;
 
-  const categoryValidate = await Category.findById(category);
-  if (!categoryValidate) {
-    throw new CustomError.NotFoundError(
-      `No category found with this id ${category}`
-    );
-  }
-
-  if (sections) {
-    const sectionValidate = await Section.findById(sections);
-    if (!sectionValidate) {
-      throw new CustomError.NotFoundError(
-        `No Section found with this id ${sections}`
-      );
-    }
-  }
-
-  if (tags) {
-    for (let tagId of tags) {
-      const tagValidate = await Tag.findById(tagId);
-      if (!tagValidate) {
-        throw new CustomError.NotFoundError(
-          `No Tags found with this id ${tagId}`
-        );
-      }
-    }
-  }
+  const categoryIds = await resolveIds(category, Category, 'Category');
 
   const course = await Course.findById(courseId);
   if (!course) {
@@ -211,12 +160,10 @@ const updateCourse = async (req, res) => {
 
   course.title = title;
   course.description = description;
-  course.sections = sections;
   course.requirements = requirements;
   course.isPaid = isPaid;
   course.featured = featured;
-  course.category = category;
-  course.tags = tags;
+  course.category = categoryIds;
   course.price = price;
   course.image = image;
   await course.save();
@@ -226,6 +173,7 @@ const updateCourse = async (req, res) => {
 const deleteCourse = async (req, res) => {
   const { id: courseId } = req.params;
   const course = await Course.findByIdAndDelete(courseId);
+  checkPermission(req.user, course.instructor);
   if (!course) {
     throw new CustomError.NotFoundError(
       `No courses found with id: ${courseId}`

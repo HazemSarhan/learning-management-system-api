@@ -31,7 +31,7 @@ const CourseSchema = new mongoose.Schema(
       },
     ],
     requirements: {
-      type: [String],
+      type: [String], // Multiple requirements
     },
     isPaid: {
       type: Boolean,
@@ -55,12 +55,14 @@ const CourseSchema = new mongoose.Schema(
       ref: 'Category',
       required: true,
     },
-    tags: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tag',
-      },
-    ],
+    numOfReviews: {
+      type: Number,
+      default: 0,
+    },
+    averageRating: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

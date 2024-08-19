@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Purchase</title>
+  </head>
+  <body>
+    <h1>Course Purchase</h1>
+    <p>Click the button below to proceed with the payment.</p>
+    <button id="purchaseBtn">Buy Course</button>
+
+    <script>
+      document
+        .getElementById('purchaseBtn')
+        .addEventListener('click', async function () {
+          const courseId = '66bce5eaf9d59283bb4c0680'; // Replace with the actual course ID you want to purchase
+
+          try {
+            // Send a POST request to your backend to create the Stripe Checkout session
+            const response = await fetch('/api/v1/course/payments/', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ courseId: courseId }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              // Redirect to the Stripe Checkout URL
+              window.location.href = data.url;
+            } else {
+              alert('Failed to initiate the purchase: ' + data.msg);
+            }
+          } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while initiating the purchase.');
+          }
+        });
+    </script>
+  </body>
+</html>

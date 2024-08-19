@@ -2,7 +2,7 @@ const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../errors');
 const { attachCookiesToResponse, createTokenUser } = require('../utils');
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require('../configs/cloudinaryConfig');
 const fs = require('fs');
 
 const register = async (req, res) => {

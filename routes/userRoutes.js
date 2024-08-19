@@ -8,6 +8,10 @@ const {
   updateUserPassword,
 } = require('../controllers/userController');
 const {
+  getSpecificOrderUser,
+} = require('../controllers/courseEnrollmentController');
+
+const {
   authenticatedUser,
   authorizePermissions,
 } = require('../middleware/authentication');
@@ -26,5 +30,12 @@ router
 router
   .route('/:id')
   .get([authenticatedUser, authorizePermissions('admin')], getSingleUser);
+
+router
+  .route('/:id/orders')
+  .get(
+    [authenticatedUser, authorizePermissions('admin')],
+    getSpecificOrderUser
+  );
 
 module.exports = router;

@@ -9,12 +9,7 @@ const path = require('path');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
-const cloudinary = require('cloudinary').v2;
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET,
-});
+const cloudinary = require('./configs/cloudinaryConfig');
 
 // DB Connection
 const connectDB = require('./db/connect');
@@ -27,6 +22,10 @@ const courseStructureRoutes = require('./routes/courseStructureRoutes');
 const createCourse = require('./routes/courseManagementRoutes/courseRoutes');
 const createSection = require('./routes/courseManagementRoutes/sectionRoutes');
 const createLecture = require('./routes/courseManagementRoutes/lectureRoutes');
+
+const courseEnrollmentsRoutes = require('./routes/courseEnrollmentRoutes');
+
+const courseReviewRoutes = require('./routes/courseReviewRoutes');
 
 // Middleware
 const notFoundMiddleware = require('./middleware/not-found');
@@ -43,15 +42,42 @@ app.use(
   })
 );
 
+// Users & Auth
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
+
+// Course Structure [Category, Subcategory, Order]
 app.use('/api/v1/course/structure', courseStructureRoutes);
+
+// Course Management
 app.use('/api/v1/course/management', createCourse);
 app.use('/api/v1/course/management', createSection);
 app.use('/api/v1/course/management', createLecture);
 
+// Payments
+app.use('/api/v1/course/payments', courseEnrollmentsRoutes);
+
+// Reviews
+app.use('/api/v1/course/reviews', courseReviewRoutes);
+
 app.get('/', (req, res) => {
   res.send(`<h1>Learning Management System API</h1>`);
+});
+
+app.get('/order-test', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/frontend', 'order-test.html'));
+});
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/frontend', 'login.html'));
+});
+
+app.get('/api/v1/payments/success', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/frontend', 'success.html'));
+});
+
+app.get('/api/v1/payments/cancel', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/frontend', 'cancel.html'));
 });
 
 app.use(notFoundMiddleware);

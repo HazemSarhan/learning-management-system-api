@@ -23,6 +23,7 @@
     "http-status-codes": "^2.3.0",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
+    "mailtrap": "^3.4.0",
     "mongoose": "^8.5.1",
     "morgan": "^1.10.0",
     "stripe": "^16.5.0",

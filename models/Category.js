@@ -18,12 +18,6 @@ const CategorySchema = new mongoose.Schema(
         ref: 'Subcategory',
       },
     ],
-    tags: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Tag',
-      },
-    ],
   },
   { timestamps: true }
 );

@@ -17,33 +17,34 @@ const createLecture = async (req, res) => {
 
   const { title, duration, isPreview } = req.body;
 
-  let content = '/uploads/course-content.mp4';
+  let content = [];
   let type = 'text';
 
   if (req.files && req.files.content) {
-    const fileFormat = req.files.content.mimetype;
-    console.log(fileFormat);
+    const files = Array.isArray(req.files.content)
+      ? req.files.content
+      : [req.files.content];
+    for (const file of files) {
+      const fileFormat = file.mimetype;
 
-    // Checking the content type
-    if (fileFormat.startsWith('image')) {
-      type = 'image';
-    } else if (fileFormat.startsWith('video')) {
-      type = 'video';
-    } else if (fileFormat === 'application/pdf') {
-      type = 'pdf';
-    }
+      if (fileFormat.startsWith('image')) {
+        type = 'image';
+      } else if (fileFormat.startsWith('video')) {
+        type = 'video';
+      } else if (fileFormat === 'application/pdf') {
+        type = 'pdf';
+      }
 
-    // Upload the content based on it's type
-    const result = await cloudinary.uploader.upload(
-      req.files.content.tempFilePath,
-      {
+      const result = await cloudinary.uploader.upload(file.tempFilePath, {
         use_filename: true,
         folder: 'lms-content',
         resource_type: type === 'video' ? 'video' : 'auto',
-      }
-    );
-    fs.unlinkSync(req.files.content.tempFilePath);
-    content = result.secure_url;
+      });
+      fs.unlinkSync(file.tempFilePath);
+      content.push(result.secure_url);
+    }
+  } else {
+    content.push('/uploads/course-content.mp4'); // Default URL
   }
 
   const lecture = await Lecture.create({
@@ -64,7 +65,14 @@ const createLecture = async (req, res) => {
 };
 
 const getAllLectures = async (req, res) => {
-  const lecture = await Lecture.find({});
+  const lecture = await Lecture.find({}).populate({
+    path: 'section',
+    select: 'title description course',
+    populate: {
+      path: 'course',
+      select: 'title price instructor students',
+    },
+  });
   res.status(StatusCodes.OK).json({ lecture });
 };
 
@@ -72,10 +80,10 @@ const getSingleLecture = async (req, res) => {
   const { id: lectureId } = req.params;
   const lecture = await Lecture.findById(lectureId).populate({
     path: 'section',
-    select: 'title course',
+    select: 'title description course',
     populate: {
       path: 'course',
-      select: 'title instructor price',
+      select: 'title price instructor students',
     },
   });
   if (!lecture) {

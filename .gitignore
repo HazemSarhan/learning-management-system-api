@@ -1,3 +1,6 @@
 /node_modules
 .env
-populate.js
+courseStructureCleaner.js
+courseManagementCleaner.js
+/mailtrap
+/stripe.exe

@@ -6,11 +6,13 @@ const LectureSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Must provide valid lecture'],
     },
-    content: {
-      type: String, // if (cloudinary) ? URL : mongoDB
-      default: '/uploads/course-content.mp4',
-      required: true,
-    },
+    content: [
+      {
+        type: String, // if (cloudinary) ? URL : mongoDB
+        default: '/uploads/course-content.mp4',
+        required: true,
+      },
+    ],
     section: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Section',

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Success</title>
+  </head>
+  <body>
+    <h1>Payment Success</h1>
+    <p>Your payment was successful!</p>
+    <script>
+      // Extract the session ID from the URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const sessionId = urlParams.get('session_id');
+
+      if (sessionId) {
+        // Make an API call to complete the order
+        fetch(`/api/v1/payments/complete-order?session_id=${sessionId}`)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data.message);
+            // Optionally, redirect to a dashboard or course page
+            // window.location.href = '/dashboard';
+          })
+          .catch((error) => {
+            console.error('Error completing the order:', error);
+          });
+      } else {
+        console.error('Session ID not found in URL.');
+      }
+    </script>
+  </body>
+</html>
