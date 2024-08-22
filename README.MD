@@ -44,14 +44,13 @@
 
 Built with:
 
-- [![Node][node-js]]
-- [![Express][express-js]]
-- [![MongoDB][mongo-db]]
-- [![JWt][jwt]]
-
-* Cloudinary [For Image Uploading]
-* Stripe [For Payments & Orders]
-* Mailtrap.io [For Receiving Order Confirmation Messages]
+- Node.JS
+- Express.JS
+- MongoDB
+- JWT (JSON Web Tokens)
+- Cloudinary [For Image Uploading]
+- Stripe [For Payments & Orders]
+- Mailtrap.io [For Receiving Order Confirmation Messages]
 
 ## Getting Started & Installation
 
@@ -86,7 +85,7 @@ MY_EMAIL = same_mailtrap_email
 ## Models
 
 <picture>
-  <img alt="DB Design" src="https://imgur.com/a/zG2srDo">
+  <img alt="DB Design" src="https://i.imgur.com/0CzwXXA.png">
 </picture>
 
 Check full model design [DB Design](https://drawsql.app/teams/drag0ns-team/diagrams/lms).
@@ -94,9 +93,12 @@ Check full model design [DB Design](https://drawsql.app/teams/drag0ns-team/diagr
 ## Routes
 
 - [ ] Authentication
-      POST `/api/v1/auth/register` - Register a new user
-      POST `/api/v1/auth/login` - Login a user
-      POST `/api/v1/auth/logout` - Logout a user
+
+```sh
+POST `/api/v1/auth/register`- Register a new user
+POST `/api/v1/auth/login`- Login a user
+POST `/api/v1/auth/logout` - Logout a user
+```
 
 - [ ] Users
       GET `/api/v1/users` - Get all users
@@ -233,3 +235,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [express-js]: https://svgur.com/i/19a1.svg
 [mongo-db]: https://svgur.com/i/19b4.svg
 [jwt]: https://svgshare.com/i/19bi.svg
+[db]: https://i.imgur.com/0CzwXXA.png
