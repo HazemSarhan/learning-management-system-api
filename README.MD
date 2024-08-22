@@ -232,4 +232,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [node-js]: https://svgur.com/i/19bZ.svg
 [express-js]: https://svgur.com/i/19a1.svg
 [mongo-db]: https://svgur.com/i/19b4.svg
-[jwt]: https://svgur.com/i/19bi.svg
+[jwt]: https://svgshare.com/i/19bi.svg
