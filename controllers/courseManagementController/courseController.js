@@ -1,5 +1,6 @@
 const Course = require('../../models/Course');
 const Category = require('../../models/Category');
+const User = require('../../models/User');
 const Section = require('../../models/Section');
 const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../../errors');
@@ -65,16 +66,21 @@ const createCourse = async (req, res) => {
     sections,
   });
 
-  console.log(category);
-  console.log(categoryIds);
-
   if (price > 0) {
     course.isPaid = true;
   }
 
+  // Update all sections and link it to the course
   await Section.updateMany(
-    { _id: { $in: sections } }, // Update all sections and link it to the course
+    { _id: { $in: sections } },
     { course: course._id },
+    { new: true }
+  );
+
+  // Update the instructor's uploadedCourses array
+  await User.findByIdAndUpdate(
+    instructor,
+    { $push: { uploadedCourses: course._id } },
     { new: true }
   );
 

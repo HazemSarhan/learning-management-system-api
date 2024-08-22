@@ -44,6 +44,12 @@ const UserSchema = new mongoose.Schema(
         ref: 'Course',
       },
     ],
+    uploadedCourses: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Course',
+      },
+    ],
   },
   { timestamps: true }
 );

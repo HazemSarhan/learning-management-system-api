@@ -15,10 +15,11 @@ const createLecture = async (req, res) => {
     );
   }
 
-  const { title, duration, isPreview } = req.body;
+  const { title, isPreview } = req.body;
 
   let content = [];
   let type = 'text';
+  let duration = '';
 
   if (req.files && req.files.content) {
     const files = Array.isArray(req.files.content)

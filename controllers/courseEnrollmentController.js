@@ -7,6 +7,7 @@ const CustomError = require('../errors');
 const { StatusCodes } = require('http-status-codes');
 const path = require('path');
 const { paginate } = require('../utils');
+const { mailtrapClient, sender } = require('../configs/mailtrapConfig');
 
 const purchaseCourse = async (req, res) => {
   const { courseId } = req.body;
@@ -94,6 +95,19 @@ const paymentSuccess = async (req, res) => {
   const course = await Course.findById(courseId);
   course.students.push(user._id.toString());
   await course.save();
+
+  try {
+    await mailtrapClient.send({
+      from: sender,
+      // to: [{ email: user.email }], // if (mailtrap member => paid)
+      to: [{ email: `${process.env.MY_EMAIL}` }], // if (mailtrap member => demo 'free' , use your mailtrap email to recieve the message)
+      subject: 'Course Purchase Confirmation',
+      text: `Hi ${user.name},\n\nYou have successfully purchased the course: ${course.title}.`,
+      html: `<h1>Hi ${user.name},</h1><p>You have successfully purchased the course: <strong>${course.title}</strong>.</p>`,
+    });
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
 
   res
     .status(200)
