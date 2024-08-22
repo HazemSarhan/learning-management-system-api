@@ -9,7 +9,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/HazemSarhan/learning-management-system-api">
-    <img src="https://claned.com/wp-content/uploads/2023/06/What-is-API-Integration-in-LMS.jpg" alt="Logo" width="80" height="80">
+    <img src="https://claned.com/wp-content/uploads/2023/06/What-is-API-Integration-in-LMS.jpg" alt="Logo" width="100" height="100">
   </a>
 
 <h3 align="center">[Learning Management System]</h3>
@@ -255,7 +255,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
 [license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
+[linkedin-url]: https://www.linkedin.com/in/hazemmegahed/
 [product-screenshot]: images/screenshot.png
 [node-js]: https://svgur.com/i/19bZ.svg
 [express-js]: https://svgur.com/i/19a1.svg
