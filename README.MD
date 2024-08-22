@@ -92,7 +92,7 @@ Check full model design [DB Design](https://drawsql.app/teams/drag0ns-team/diagr
 
 ## Routes
 
-- [ ] Authentication
+- [ ] Authentication:
 
 ```sh
 POST `/api/v1/auth/register`- Register a new user
@@ -100,36 +100,48 @@ POST `/api/v1/auth/login`- Login a user
 POST `/api/v1/auth/logout` - Logout a user
 ```
 
-- [ ] Users
-      GET `/api/v1/users` - Get all users
-      GET `/api/v1/users/:id` - Get a single user by ID
-      GET `/api/v1/users/showMe` - Show current user data
-      PATCH `/api/v1/users/updateUser` - Update user data
-      PATCH `/api/v1/users/updateUserPassword` - Update user password
-      GET `/api/v1/users/:id/orders` - Get all orders for specific user [userId]
+- [ ] Users:
 
-- [ ] Course Structure Workflow [Tags, Subcategories, Categories]
+```sh
+GET `/api/v1/users` - Get all users
+GET `/api/v1/users/:id` - Get a single user by ID
+GET `/api/v1/users/showMe` - Show current user data
+PATCH `/api/v1/users/updateUser` - Update user data
+PATCH `/api/v1/users/updateUserPassword` - Update user password
+GET `/api/v1/users/:id/orders` - Get all orders for specific user [userId]
+```
 
-  - [ ] Tags
+- [ ] Course Structure Workflow [Tags, Subcategories, Categories]:
+
+  - [ ] Tags:
+
+  ```sh
         POST `/api/v1/course/structure/tag` - Create a new tag
         GET `/api/v1/course/structure/tag` - Get all tags
         GET `/api/v1/course/structure/tag/:id` - Get a single tag by tagId
         PATCH `/api/v1/course/structure/tag/:id` - Update a tag
         DELETE `/api/v1/course/structure/tag/:id` - Delete a tag
+  ```
 
-  - [ ] Subcategories
+  - [ ] Subcategories:
+
+  ```sh
         POST `/api/v1/course/structure/subcategory` - Create a new subcategory
         GET `/api/v1/course/structure/subcategory` - Get all subcategories
         GET `/api/v1/course/structure/subcategory/:id` - Get a single subcategory by subcategoryId
         PATCH `/api/v1/course/structure/subcategory/:id` - Update a subcategory
         DELETE `/api/v1/course/structure/subcategory/:id` - Delete a subcategory
+  ```
 
-  - [ ] Categories
+  - [ ] Categories:
+
+  ```sh
         POST `/api/v1/course/structure/category` - Create a new category
         GET `/api/v1/course/structure/category` - Get all categories
         GET `/api/v1/course/structure/category/:id` - Get a single category by categoryId
         PATCH `/api/v1/course/structure/category/:id` - Update a category
         DELETE `/api/v1/course/structure/category/:id` - Delete a category
+  ```
 
 - [ ] Course Management [Courses, Sections, Lectures]
 
