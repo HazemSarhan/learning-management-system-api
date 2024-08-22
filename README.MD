@@ -143,44 +143,58 @@ GET `/api/v1/users/:id/orders` - Get all orders for specific user [userId]
         DELETE `/api/v1/course/structure/category/:id` - Delete a category
   ```
 
-- [ ] Course Management [Courses, Sections, Lectures]
+- [ ] Course Management [Courses, Sections, Lectures]:
 
-  - [ ] Courses
+  - [ ] Courses:
+
+  ```sh
         POST `/api/v1/course/management/courses` - Create a new course
         GET `/api/v1/course/management/courses` - Get all courses
         GET `/api/v1/course/management/courses/:id` - Get a single course
         PATCH `/api/v1/course/management/courses/:id` - Update a course
         DELETE `/api/v1/course/management/courses/:id` - Delete a course
         GET `/api/v1//course/management/:id/reviews` - Get a course reviews by courseId
+  ```
 
-  - [ ] Sections
+  - [ ] Sections:
+
+  ```sh
         POST `/api/v1/course/management/:id/section` - Create a new section using courseId
         GET `/api/v1/course/management/section` - Get all sections
         GET `/api/v1/course/management/:id/section` - Get a single section
         PATCH `/api/v1/course/management/:id/section` - Update a section
         DELETE `/api/v1/course/management/:id/section` - Delete a section
+  ```
 
-  - [ ] Sections
+  - [ ] Sections:
+
+  ```sh
         POST `/api/v1/course/management/:id/lecture` - Create a new lecture using sectionId
         GET `/api/v1/course/management/lectures` - Get all lectures
         GET `/api/v1/course/management/:id/lecture` - Get a single lecture
         PATCH `/api/v1/course/management/:id/lecture` - Update a lecture
         DELETE `/api/v1/course/management/:id/lecture` - Delete a lecture
+  ```
 
-- [ ] Course Enrollments [Order]
+- [ ] Course Enrollments [Order]:
+
+  ```sh
       POST `/api/v1/course/payments` - Create a new order [body => courseId: "required"]
       GET `/api/v1/course/payments` - Get all orders
       GET `/api/v1//course/payments/success?session_id={sessionId}` - Manually success the paymentStatus
       GET `/course/payments/:id` Get single order using orderId
       PATCH `/course/payments/:id` Update order status [paymentStatus]
       DELETE `/course/payments/:id` Delete order
+  ```
 
-- [ ] Course Reviews
+- [ ] Course Reviews:
+  ```sh
       POST `/api/v1/course/reviews` - Create course review [Students only route]
       GET `/api/v1/course/reviews` - Get all reviews [All Courses]
       GET `/api/v1/course/reviews/:id` - Get a single review using reviewId
       PATCH `/api/v1/course/reviews/:id` - Update review
       DELETE `/api/v1/course/reviews/:id` - Delete review
+  ```
 
 ## Usage
 
