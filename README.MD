@@ -253,15 +253,15 @@ npm start
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 [contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
+[contributors-url]: https://github.com/HazemSarhan/learning-management-system-api/graphs/contributors
+[forks-shield]: https://img.shields.io/github/HazemSarhan/learning-management-system-api/repo_name.svg?style=for-the-badge
+[forks-url]: https://github.com/HazemSarhan/learning-management-system-api/network/members
+[stars-shield]: https://img.shields.io/github/stars/HazemSarhan/learning-management-system-api.svg?style=for-the-badge
+[stars-url]: https://github.com/HazemSarhan/learning-management-system-api/stargazers
+[issues-shield]: https://img.shields.io/github/issues/HazemSarhan/learning-management-system-api.svg?style=for-the-badge
+[issues-url]: https://github.com/HazemSarhan/learning-management-system-api/issues
+[license-shield]: https://img.shields.io/github/license/HazemSarhan/learning-management-system-api.svg?style=for-the-badge
+[license-url]: https://github.com/HazemSarhan/learning-management-system-api/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/hazemmegahed/
 [product-screenshot]: images/screenshot.png
