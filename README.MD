@@ -94,7 +94,6 @@ Check full model design [DB Design](https://drawsql.app/teams/drag0ns-team/diagr
 
 > [!NOTE]
 > Check the docs for all routes & data [LMS API Documentation](http://localhost:5000/api-docs/).
-> Postman API Key for this project [LMS API Postman](https://api.postman.com/collections/36229537-e9c4c9a3-cbf0-48cb-9612-837d9fe09b5b?access_key=PMAT-01J600344AJSM3CEDHT0AAZVHM)
 
 http://localhost:5000/api-docs
 
