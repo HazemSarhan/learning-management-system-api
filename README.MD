@@ -261,7 +261,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [issues-shield]: https://img.shields.io/github/issues/HazemSarhan/learning-management-system-api.svg?style=for-the-badge
 [issues-url]: https://github.com/HazemSarhan/learning-management-system-api/issues
 [license-shield]: https://img.shields.io/github/license/HazemSarhan/learning-management-system-api.svg?style=for-the-badge
-[license-url]: https://github.com/HazemSarhan/learning-management-system-api/blob/master/LICENSE.txt
+[license-url]: https://github.com/HazemSarhan/learning-management-system-api/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/hazemmegahed/
 [product-screenshot]: images/screenshot.png
