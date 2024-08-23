@@ -18,6 +18,12 @@ const xss = require('xss-clean');
 const cors = require('cors');
 const mongoSanitize = require('express-mongo-sanitize');
 
+// SwaggerUI
+// Swagger
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
+
 // DB Connection
 const connectDB = require('./db/connect');
 
@@ -84,6 +90,8 @@ app.use('/api/v1/course/reviews', courseReviewRoutes);
 app.get('/', (req, res) => {
   res.send(`<h1>Learning Management System API</h1>`);
 });
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get('/order-test', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/frontend', 'order-test.html'));

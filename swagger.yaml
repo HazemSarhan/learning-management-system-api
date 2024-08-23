@@ -1,0 +1,843 @@
+openapi: 3.0.0
+info:
+  title: Learning Management System
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000/api/v1
+tags:
+  - name: Authentication
+  - name: Users
+  - name: Course Structure Workflow
+    description: >-
+      Course Structure Workflow \[Updated\] => \[Categories, Subcategories,
+      Tags\]
+  - name: Course Structure Workflow > Tags
+  - name: Course Structure Workflow > Subcategories
+  - name: Course Structure Workflow > Categories
+  - name: Course Management
+    description: Course Management Tab only for instructors to create their courses.
+  - name: Course Management > Courses
+  - name: Course Management > Sections
+  - name: Course Management > Lectures
+  - name: Course Enrollments
+  - name: Course Reviews
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: Register User
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: username01
+                email:
+                  type: string
+                  example: newuser01@user.com
+                password:
+                  type: string
+                  example: secret
+                bio:
+                  type: string
+                  example: >-
+                    It is a long established fact that a reader will be
+                    distracted by the readable content of a page
+                profilePicture:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Login User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: hazem@admin.com
+                password: secret
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /auth/logout:
+    get:
+      tags:
+        - Authentication
+      summary: Logout User
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Get All Users
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /users/showMe:
+    get:
+      tags:
+        - Users
+      summary: Show Current User Data
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /users/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID.
+    get:
+      tags:
+        - Users
+      summary: Get Single User By Id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /users/updateUser:
+    patch:
+      tags:
+        - Users
+      summary: Update User
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: user10|Updated
+                email:
+                  type: string
+                  example: user10@user.com
+                bio:
+                  type: string
+                  example: bio|Updated
+                profilePicture:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /users/updateUserPassword:
+    patch:
+      tags:
+        - Users
+      summary: Update User Password
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+
+  /users/{id}/orders:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID.
+    get:
+      tags:
+        - Users
+      summary: Get All Orders [Specific User]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/structure/tag:
+    post:
+      tags:
+        - Course Structure Workflow > Tags
+      summary: Create Tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                - name: JavaScript
+                - name: HTML
+                - name: CSS
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Course Structure Workflow > Tags
+      summary: Get All Tags
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/structure/tag/{tagId}:
+    parameters:
+      - in: path
+        name: tagId
+        schema:
+          type: string
+        required: true
+        description: tagId.
+    get:
+      tags:
+        - Course Structure Workflow > Tags
+      summary: Get Single Tag
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    patch:
+      tags:
+        - Course Structure Workflow > Tags
+      summary: Update Tag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: 'TAG #de'
+                categories:
+                  - 66ba429df27efd2a087cef00
+                subcategories:
+                  - 66ba4352724c2493f97cf654
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Course Structure Workflow > Tags
+      summary: Delete Tag
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/structure/subcategory:
+    post:
+      tags:
+        - Course Structure Workflow > Subcategories
+      summary: Create Subcategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                - name: Web Development
+                  description: Courses on front-end and back-end web development.
+                  tags:
+                    - HTML
+                    - CSS
+                    - JavaScript
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Course Structure Workflow > Subcategories
+      summary: Get All Subcategories
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/structure/subcategory/{subcategoryId}:
+    parameters:
+      - in: path
+        name: subcategoryId
+        schema:
+          type: string
+        required: true
+        description: subcategoryId.
+    get:
+      tags:
+        - Course Structure Workflow > Subcategories
+      summary: Get Single Subcategory
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    patch:
+      tags:
+        - Course Structure Workflow > Subcategories
+      summary: Update Subcategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: 'Subcategory #4 | UPDATED '
+                description: Courses on front-end and back-end web development.
+                tags: []
+                categories:
+                  - 66ba43f68f8930f617524404
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Course Structure Workflow > Subcategories
+      summary: Delete Subcategory
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/structure/category:
+    post:
+      tags:
+        - Course Structure Workflow > Categories
+      summary: Create Category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Programming
+                description: All programming related courses
+                subcategories:
+                  - Web Development
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Course Structure Workflow > Categories
+      summary: Get All Categories
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/structure/category/{categoryId}:
+    parameters:
+      - in: path
+        name: categoryId
+        schema:
+          type: string
+        required: true
+        description: categoryId.
+    get:
+      tags:
+        - Course Structure Workflow > Categories
+      summary: Get Single Category
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    patch:
+      tags:
+        - Course Structure Workflow > Categories
+      summary: Update Category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: 'Category #344 | Updated'
+                description: 'Category #344 | Description | Updated'
+                subcategories:
+                  - 66ba44178f8930f61752440a
+                tags:
+                  - 66ba446a8f8930f61752441b
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Course Structure Workflow > Categories
+      summary: Delete Category
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/management/courses:
+    post:
+      tags:
+        - Course Management > Courses
+      summary: Create Course
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: Fullstack Web Development
+                description: Learn to build fullstack web applications.
+                requirements:
+                  - Basic understanding of HTML and CSS
+                  - Basic JavaScript knowledge
+                isPaid: true
+                featured: true
+                category:
+                  - Programming
+                price: 49.99
+                image: your-image-url-here
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Course Management > Courses
+      summary: Get All Courses
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/management/{courseId}/courses:
+    parameters:
+      - in: path
+        name: courseId
+        schema:
+          type: string
+        required: true
+        description: courseId
+    get:
+      tags:
+        - Course Management > Courses
+      summary: Get Single Course
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+
+    patch:
+      tags:
+        - Course Management > Courses
+      summary: Update Course
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: First Coursef6
+                description: This is course description
+                isPaid: true
+                featured: false
+                price: 150
+                image: /uploads/default_course_image.jpeg
+                category:
+                  - Programming
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+
+    delete:
+      tags:
+        - Course Management > Courses
+      summary: Delete Course
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/management/{courseId}/reviews:
+    parameters:
+      - in: path
+        name: courseId
+        schema:
+          type: string
+        required: true
+        description: courseId
+    get:
+      tags:
+        - Course Management > Courses
+      summary: Course Reviews
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/management/{courseId}/section:
+    parameters:
+      - in: path
+        name: courseId
+        schema:
+          type: string
+        required: true
+        description: courseId
+    post:
+      tags:
+        - Course Management > Sections
+      summary: Create Section
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: The basics of Web-Development
+                description: >-
+                  This is the main basics you should know before starting the
+                  main course!
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/management/section:
+    get:
+      tags:
+        - Course Management > Sections
+      summary: Get All Sections
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/management/{sectionId}/section:
+    parameters:
+      - in: path
+        name: sectionId
+        schema:
+          type: string
+        required: true
+        description: sectionId
+    get:
+      tags:
+        - Course Management > Sections
+      summary: Get Single Section
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    patch:
+      tags:
+        - Course Management > Sections
+      summary: Update Section
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: course 2 title
+                description: course 2 description
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Course Management > Sections
+      summary: Delete Section
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/management/{sectionId}/lecture:
+    parameters:
+      - in: path
+        name: sectionId
+        schema:
+          type: string
+        required: true
+        description: sectionId
+    post:
+      tags:
+        - Course Management > Lectures
+      summary: Create Lecture
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: video-1
+                content:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/management/lectures:
+    get:
+      tags:
+        - Course Management > Lectures
+      summary: Get All Lectures
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/management/{lectureId}/lecture:
+    parameters:
+      - in: path
+        name: lectureId
+        schema:
+          type: string
+        required: true
+        description: lectureId
+    get:
+      tags:
+        - Course Management > Lectures
+      summary: Get Single Lecture
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    patch:
+      tags:
+        - Course Management > Lectures
+      summary: Update Lecture
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: new 2
+                content:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+
+    delete:
+      tags:
+        - Course Management > Lectures
+      summary: Delete Lecture
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/payments:
+    post:
+      tags:
+        - Course Enrollments
+      summary: Course Purchase
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                courseId: 66be1fcb7a23d4608a0c85c1
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/payments/orders:
+    get:
+      tags:
+        - Course Enrollments
+      summary: Get All Orders
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+          example: completed
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/payments/success:
+    get:
+      tags:
+        - Course Enrollments
+      summary: Manually Success Order
+      parameters:
+        - name: session_id
+          in: query
+          schema:
+            type: string
+          example: cs_test_a1RdcqS9q4lpHAFpVTkOYDHFwXcOU5lXj6D0WnTXLgJiD8hsIun5aIElse
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/payments/{orderId}:
+    parameters:
+      - in: path
+        name: orderId
+        schema:
+          type: string
+        required: true
+        description: orderId
+    get:
+      tags:
+        - Course Enrollments
+      summary: Get Single Order
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    patch:
+      tags:
+        - Course Enrollments
+      summary: Update Order Status
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                paymentStatus: completed
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Course Enrollments
+      summary: Delete Order
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/reviews:
+    post:
+      tags:
+        - Course Reviews
+      summary: Create Review
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                course: 66c35383dd21f20d9031960e
+                title: Good Product, Life Saver!
+                comment: This product is a good product and i really recommend it
+                rating: 4
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Course Reviews
+      summary: Get All Reviews
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /course/reviews/{reviewId}:
+    parameters:
+      - in: path
+        name: reviewId
+        schema:
+          type: string
+        required: true
+        description: reviewId
+    get:
+      tags:
+        - Course Reviews
+      summary: Get Review By Id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    patch:
+      tags:
+        - Course Reviews
+      summary: Update Review
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                course: 66c35383dd21f20d9031960e
+                title: Good Product, Life Saver!
+                comment: This product is a good product and i really recommend it
+                rating: 5
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Course Reviews
+      summary: Delete Review
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

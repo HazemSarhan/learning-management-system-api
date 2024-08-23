@@ -157,14 +157,10 @@ const getAllTags = async (req, res) => {
 const getSingleTag = async (req, res) => {
   const { id: tagId } = req.params;
   const tag = await Tag.findById(tagId)
-    .populate({
-      path: 'categories',
-      select: 'name description',
-    })
-    .populate({
-      path: 'subcategories',
-      select: 'name description',
-    });
+  .populate({
+    path: 'subcategories',
+    select: 'name description',
+  });
   if (!tag) {
     throw new CustomError.NotFoundError(`No tag found with id: ${tagId}`);
   }

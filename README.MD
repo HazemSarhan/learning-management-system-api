@@ -52,7 +52,7 @@ Built with:
 - Stripe [For Payments & Orders]
 - Mailtrap.io [For Receiving Order Confirmation Messages]
 
-## Getting Started & Installation
+## Getting Started
 
 ```sh
 git clone https://github.com/HazemSarhan/learning-management-system-api.git
@@ -91,6 +91,11 @@ MY_EMAIL = same_mailtrap_email
 Check full model design [DB Design](https://drawsql.app/teams/drag0ns-team/diagrams/lms).
 
 ## Routes
+
+> [!NOTE]
+> Check the docs for all routes & data [LMS API Documentation](http://localhost:5000/api-docs/).
+
+http://localhost:5000/api-docs
 
 - [ ] Authentication:
 
@@ -205,6 +210,9 @@ After creating .env with all [Environment Variables](#environment-variables) :
 ```sh
 npm start
 ```
+
+> [!NOTE]
+> Check the docs for all routes & data [LMS API Documentation](http://localhost:5000/api-docs/).
 
 2. Register a new user.
 
