@@ -254,7 +254,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 [contributors-shield]: https://img.shields.io/github/contributors/HazemSarhan/learning-management-system-api?style=for-the-badge
 [contributors-url]: https://github.com/HazemSarhan/learning-management-system-api/graphs/contributors
-[forks-shield]: https://img.shields.io/github/HazemSarhan/learning-management-system-api.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/HazemSarhan/learning-management-system-api.svg?style=for-the-badge
 [forks-url]: https://github.com/HazemSarhan/learning-management-system-api/network/members
 [stars-shield]: https://img.shields.io/github/stars/HazemSarhan/learning-management-system-api.svg?style=for-the-badge
 [stars-url]: https://github.com/HazemSarhan/learning-management-system-api/stargazers
