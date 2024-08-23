@@ -88,7 +88,10 @@ app.use('/api/v1/course/payments', courseEnrollmentsRoutes);
 app.use('/api/v1/course/reviews', courseReviewRoutes);
 
 app.get('/', (req, res) => {
-  res.send(`<h1>Learning Management System API</h1>`);
+  res.send(
+    `<h1>Learning Management System API</h1><a href="/api-docs">Documentation</a>
+    <a href="/login">Login</a>`
+  );
 });
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
