@@ -1,0 +1,68 @@
+[
+  {
+    "name": "Programming",
+    "description": "All programming related courses",
+    "subcategories": [
+      "Web Development",
+      "Programming Fundamentals",
+      "Software Engineering"
+    ]
+  },
+  {
+    "name": "Development",
+    "description": "Courses on software and application development",
+    "subcategories": [
+      "Front-End Development",
+      "Back-End Development",
+      "Full-Stack Development"
+    ]
+  },
+  {
+    "name": "Data Science",
+    "description": "Courses focused on data processing, analysis, and visualization.",
+    "subcategories": ["Data Science", "Machine Learning"]
+  },
+  {
+    "name": "Design",
+    "description": "Courses focused on design principles and tools.",
+    "subcategories": ["Web Design"]
+  },
+  {
+    "name": "Mobile Development",
+    "description": "Courses focused on developing mobile applications.",
+    "subcategories": ["Mobile App Development"]
+  },
+  {
+    "name": "Full-Stack Development",
+    "description": "Courses on both front-end and back-end development.",
+    "subcategories": ["Full-Stack Development"]
+  },
+  {
+    "name": "Software Engineering",
+    "description": "Courses on software development and best practices.",
+    "subcategories": ["Software Engineering"]
+  },
+  {
+    "name": "Web Development",
+    "description": "Courses on front-end and back-end web development.",
+    "subcategories": [
+      "Web Development",
+      "Front-End Development",
+      "Back-End Development"
+    ]
+  },
+  {
+    "name": "Computer Science",
+    "description": "Courses on various aspects of computer science.",
+    "subcategories": [
+      "Programming Fundamentals",
+      "Software Engineering",
+      "Data Science"
+    ]
+  },
+  {
+    "name": "Machine Learning & AI",
+    "description": "Courses focused on machine learning and artificial intelligence.",
+    "subcategories": ["Machine Learning"]
+  }
+]

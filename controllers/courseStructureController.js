@@ -6,6 +6,7 @@ const CustomError = require('../errors');
 const { resolveIds } = require('../utils');
 
 // Categories
+/*
 const createCategory = async (req, res) => {
   const { name, description, subcategories = [] } = req.body;
 
@@ -30,6 +31,51 @@ const createCategory = async (req, res) => {
   }
 
   res.status(StatusCodes.CREATED).json({ category });
+};
+*/
+
+const createCategory = async (req, res) => {
+  const categoriesData = Array.isArray(req.body) ? req.body : [req.body]; // Handle both single or multiple objects
+  if (categoriesData.length === 0) {
+    throw new CustomError.BadRequestError(
+      'Please provide at least one category!'
+    );
+  }
+
+  const createdCategories = [];
+
+  for (const categoryData of categoriesData) {
+    // Iteration Process for both values
+    const { name, description, subcategories = [] } = categoryData;
+    if (!name) {
+      throw new CustomError.BadRequestError(
+        'Please provide at least one category!'
+      );
+    }
+
+    // Finding names instead of subcategoryIds
+    const subcategoryIds = await resolveIds(
+      subcategories,
+      Subcategory,
+      'Subcategory'
+    );
+
+    const category = await Category.create({
+      name,
+      description,
+      subcategories: subcategoryIds,
+    });
+
+    // If subcategories found, link it to tags:
+    if (subcategoryIds.length > 0) {
+      await Subcategory.updateMany(
+        { _id: { $in: subcategoryIds } },
+        { $push: { categories: category._id } }
+      );
+    }
+    createdCategories.push(category);
+  }
+  res.status(StatusCodes.CREATED).json({ createdCategories });
 };
 
 const getAllCategories = async (req, res) => {
@@ -156,8 +202,7 @@ const getAllTags = async (req, res) => {
 
 const getSingleTag = async (req, res) => {
   const { id: tagId } = req.params;
-  const tag = await Tag.findById(tagId)
-  .populate({
+  const tag = await Tag.findById(tagId).populate({
     path: 'subcategories',
     select: 'name description',
   });

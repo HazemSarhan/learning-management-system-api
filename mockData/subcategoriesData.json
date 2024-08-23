@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Web Development",
+    "description": "Courses on front-end and back-end web development.",
+    "tags": ["HTML", "CSS", "JavaScript", "React", "Node.js"]
+  },
+  {
+    "name": "Front-End Development",
+    "description": "Courses focused on front-end technologies.",
+    "tags": ["HTML", "CSS", "JavaScript", "React", "Angular"]
+  },
+  {
+    "name": "Back-End Development",
+    "description": "Courses on server-side development.",
+    "tags": ["Node.js", "Python", "Django"]
+  },
+  {
+    "name": "Data Science",
+    "description": "Courses on data analysis, visualization, and processing.",
+    "tags": ["Python", "Data Science", "Machine Learning"]
+  },
+  {
+    "name": "Machine Learning",
+    "description": "Courses on building machine learning models.",
+    "tags": ["Python", "Data Science", "Machine Learning"]
+  },
+  {
+    "name": "Full-Stack Development",
+    "description": "Courses on both front-end and back-end development.",
+    "tags": ["JavaScript", "React", "Node.js", "HTML", "CSS"]
+  },
+  {
+    "name": "Mobile App Development",
+    "description": "Courses on building mobile applications.",
+    "tags": ["JavaScript", "React", "Angular"]
+  },
+  {
+    "name": "Web Design",
+    "description": "Courses focused on designing web interfaces.",
+    "tags": ["HTML", "CSS", "JavaScript"]
+  },
+  {
+    "name": "Software Engineering",
+    "description": "Courses on software development best practices.",
+    "tags": ["Python", "JavaScript", "Django"]
+  },
+  {
+    "name": "Programming Fundamentals",
+    "description": "Courses on basic programming concepts.",
+    "tags": ["JavaScript", "Python"]
+  }
+]

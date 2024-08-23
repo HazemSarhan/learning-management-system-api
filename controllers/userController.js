@@ -99,7 +99,7 @@ const updateUserPassword = async (req, res) => {
     );
   }
 
-  const user = await User.findById(req.user.userId).select('-password');
+  const user = await User.findById(req.user.userId);
   const isPasswordCorrect = user.comparePassword(oldPassword);
   if (!isPasswordCorrect) {
     throw new CustomError.UnauthenticatedError('Old password is not correct!');
@@ -111,10 +111,36 @@ const updateUserPassword = async (req, res) => {
     .json({ msg: `Password has been changed successfully!` });
 };
 
+const changeUserRole = async (req, res) => {
+  const { id: userId } = req.params;
+  const { role } = req.body;
+
+  // Only admins allowed to change user roles!
+  if (req.user.role !== 'admin') {
+    throw new CustomError.UnauthorizedError(
+      'Not authorized to change user roles'
+    );
+  }
+
+  const user = await User.findById(userId).select('-password');
+  if (!user) {
+    throw new CustomError.NotFoundError(
+      `No users found with this id: ${userId}`
+    );
+  }
+
+  user.role = role;
+  await user.save();
+  res
+    .status(StatusCodes.OK)
+    .json({ userRole: user.role, msg: `User role updated successfully.` });
+};
+
 module.exports = {
   getAllUsers,
   getSingleUser,
   showCurrentUser,
   updateUser,
   updateUserPassword,
+  changeUserRole,
 };

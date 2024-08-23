@@ -178,6 +178,31 @@ paths:
           description: Successful response
           content:
             application/json: {}
+
+  /users/{userId}/roles:
+    parameters:
+      - in: path
+        name: userId
+        schema:
+          type: string
+        required: true
+        description: Update user role.
+    post:
+      tags:
+        - Users
+      summary: Change User Role [Admins Only]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                role: instructor
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
   /course/structure/tag:
     post:
       tags:

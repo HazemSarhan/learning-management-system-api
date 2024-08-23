@@ -6,6 +6,7 @@ const {
   showCurrentUser,
   updateUser,
   updateUserPassword,
+  changeUserRole,
 } = require('../controllers/userController');
 const {
   getSpecificOrderUser,
@@ -37,5 +38,9 @@ router
     [authenticatedUser, authorizePermissions('admin')],
     getSpecificOrderUser
   );
+
+router
+  .route('/:id/roles')
+  .post([[authenticatedUser, authorizePermissions('admin')], changeUserRole]);
 
 module.exports = router;
